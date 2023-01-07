@@ -23,6 +23,15 @@ mongoose.connect(DATABASE_URL, {
     .on("close", () => console.log("You are disconnected from mongoose"))
     .on("error", (error) => console.log(error));
 
+///////////////////////////////
+// MODELS
+////////////////////////////////
+
+const CheeseSchema = new mongoose.Schema({
+    name: String,
+    countryOfOrigin: String,
+    image: String
+})
 
 ///////////////////////////////
 // ROUTES
