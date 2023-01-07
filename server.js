@@ -61,6 +61,15 @@ app.get("/cheese", async (req, res) => {
     }
 })
 
+// Delete Route
+app.delete("/cheese/:id", async (req, res) => {
+    try {
+        res.json(await Cheese.findByIdAndRemove(req.params.id))
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
 // Update Route
 app.put("/cheese/:id", async (req, res) => {
     try {
