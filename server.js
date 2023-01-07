@@ -33,12 +33,30 @@ const CheeseSchema = new mongoose.Schema({
     image: String
 })
 
+const Cheese = mongoose.model("Cheese", CheeseSchema)
+
+///////////////////////////////
+// MiddleWare
+////////////////////////////////
+app.use(cors())
+app.use(morgan("dev"))
+app.use(express.json())
+
 ///////////////////////////////
 // ROUTES
 ////////////////////////////////
 
 app.get("/", (req, res) => {
     res.send("Hello World")
+})
+
+// Index Route
+app.get("/cheese", async (req, res) => {
+    try {
+        res.json(await Cheese.find({}))
+    } catch (error) {
+        res.status(400).json(error)
+    }
 })
 
 ///////////////////////////////
