@@ -8,6 +8,8 @@ const express = require("express")
 const app = express()
 const mongoose = require('mongoose')
 const DATABASE_URL = process.env.DATABASE_URL
+const cors = require("cors")
+const morgan = require("morgan")
 
 ///////////////////////////////
 // DATABASE CONNECTION
@@ -59,8 +61,19 @@ app.get("/cheese", async (req, res) => {
     }
 })
 
+// Update Route
+app.put("/cheese/:id", async (req, res) => {
+    try {
+        res.json(
+            await Cheese.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        )
+    } catch (error){
+        res.status(400).json(error)
+    }
+})
+
 // Create Route
-app.post("/people", async (req, res) => {
+app.post("/cheese", async (req, res) => {
     try {
         res.json(await Cheese.create(req.body))
     } catch (error) {
